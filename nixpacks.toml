@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["openjdk17", "maven"]
+
+[phases.build]
+cmds = ["cd backend/prashant_portfolio && chmod +x mvnw && ./mvnw clean package -DskipTests"]
+
+[start]
+cmd = "java -jar backend/prashant_portfolio/target/*.jar"
