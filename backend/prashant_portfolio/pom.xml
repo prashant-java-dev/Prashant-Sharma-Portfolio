@@ -52,7 +52,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- MongoDB support -->
+        <!-- MongoDB for database -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>

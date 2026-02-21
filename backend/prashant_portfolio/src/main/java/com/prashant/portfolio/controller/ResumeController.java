@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.*;
 public class ResumeController {
 
     private static final Logger logger = LoggerFactory.getLogger(ResumeController.class);
-    private static final String RESUME_PATH = "resume/Prashant_Sharma_Java_Fresher.pdf";
-    private static final String RESUME_FILENAME = "Prashant_Sharma_Java_Fresher.pdf";
+    private static final String RESUME_PATH = "resume/Prashant_Sharma_Java_Fresher .pdf";
+    private static final String RESUME_FILENAME = "Prashant_Sharma_Java_Fresher .pdf";
 
     /**
      * Endpoint to preview resume in browser.

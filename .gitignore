@@ -1,22 +1,19 @@
-# Common
-.vscode/
-.idea/
-*.log
+# Common ignores
+node_modules/
+dist/
+build/
+target/
 .env
+.env.*
+!.env.example
+*.log
 
-# Frontend
-frontend/node_modules/
-frontend/build/
-frontend/.env.local
-frontend/.env.*.local
+# OS files
+.DS_Store
+Thumbs.db
 
-# Backend
-backend/prashant_portfolio/target/
-backend/prashant_portfolio/.mvn/wrapper/maven-wrapper.jar
-backend/prashant_portfolio/.env
-backend/prashant_portfolio/*.iml
-backend/prashant_portfolio/bin/
-backend/prashant_portfolio/obj/
-backend/prashant_portfolio/.settings/
-backend/prashant_portfolio/.project
-backend/prashant_portfolio/.classpath
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo

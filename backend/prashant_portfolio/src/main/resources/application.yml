@@ -2,6 +2,9 @@ server:
   port: ${SERVER_PORT:8080}
 
 spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
   mail:
     host: ${MAIL_HOST}
     port: ${MAIL_PORT}
@@ -13,9 +16,16 @@ spring:
           auth: true
           starttls:
             enable: true
-  data:
-    mongodb:
-      uri: ${MONGO_URI:mongodb://localhost:27017/portfolio}
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
+
+# OAuth Configuration
+google:
+  client-id: ${GOOGLE_CLIENT_ID}
+  client-secret: ${GOOGLE_CLIENT_SECRET}
 
 # CORS Configuration
 app:
