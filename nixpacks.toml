@@ -5,4 +5,4 @@ nixPkgs = ["openjdk17", "maven"]
 cmds = ["cd backend/prashant_portfolio && chmod +x mvnw && ./mvnw clean package -DskipTests"]
 
 [start]
-cmd = "java -jar backend/prashant_portfolio/target/*.jar"
+cmd = "java -jar backend/prashant_portfolio/target/portfolio-0.0.1-SNAPSHOT.jar"
