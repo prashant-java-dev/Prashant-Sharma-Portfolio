@@ -1,9 +1,0 @@
-{
-  "name": "prashant-sharma-portfolio",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "npm start --prefix frontend",
-    "build": "npm run build --prefix frontend",
-    "install-frontend": "npm install --prefix frontend"
-  }
-}
