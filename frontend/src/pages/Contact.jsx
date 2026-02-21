@@ -21,13 +21,38 @@ export default function Contact() {
     setLoading(true);
     setStatus({ type: '', message: '' });
 
+    // Build payload — auto-fill subject if blank
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      subject: formData.subject.trim() || 'General Inquiry',
+      message: formData.message.trim(),
+    };
+
+    // Frontend validation matching backend constraints
+    if (payload.name.length < 2) {
+      setStatus({ type: 'error', message: 'Name must be at least 2 characters.' });
+      setLoading(false);
+      return;
+    }
+    if (payload.subject.length < 3) {
+      setStatus({ type: 'error', message: 'Subject must be at least 3 characters.' });
+      setLoading(false);
+      return;
+    }
+    if (payload.message.length < 10) {
+      setStatus({ type: 'error', message: 'Message must be at least 10 characters.' });
+      setLoading(false);
+      return;
+    }
+
     try {
-      await contactService.sendMessage(formData);
-      setStatus({ type: 'success', message: 'Message sent successfully!' });
+      await contactService.sendMessage(payload);
+      setStatus({ type: 'success', message: '✅ Message sent successfully!' });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Failed to send message. Please try again.';
-      setStatus({ type: 'error', message: errorMessage });
+      const msg = error.response?.data?.message || error.response?.data?.errors?.join(', ') || 'Failed to send message. Please try again.';
+      setStatus({ type: 'error', message: msg });
     } finally {
       setLoading(false);
     }
