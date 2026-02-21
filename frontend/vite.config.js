@@ -4,7 +4,7 @@ import path from 'path';
 
 export default defineConfig({
     plugins: [react()],
-    base: '/prashant-fullstack-portfolio/',
+    base: '/Prashant-Sharma-Portfolio/',
     server: {
         port: 3000,
         open: true,
