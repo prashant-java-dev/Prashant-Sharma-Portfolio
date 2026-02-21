@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Experience from './pages/Experience';
 import Skills from './pages/Skills';
 import Projects from './pages/Projects';
+import Certifications from './pages/Certifications';
 import Resume from './pages/Resume';
 import Contact from './pages/Contact';
 import Footer from './components/Footer';
@@ -33,6 +34,7 @@ export default function App() {
         <Experience />
         <Skills />
         <Projects />
+        <Certifications />
         <Resume />
         <Contact />
       </main>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ThemeToggle from './ThemeToggle';
 import { Menu, X } from 'lucide-react';
 import { navLinks, personalDetails } from '../data/portfolioData';
+import Logo from './Logo';
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +29,9 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           {/* Logo */}
-          <div className="flex-shrink-0"><img src={personalDetails.logo} alt="Logo" className="h-16 w-auto" /></div>
+          <div className="flex-shrink-0">
+            <Logo className="h-16 w-auto" />
+          </div>
 
 
           {/* Desktop Menu */}

@@ -16,14 +16,6 @@ const certifications = [
     date: '2023',
     icon: 'fas fa-code',
     description: 'Hands-on training in modern frontend technologies and responsive design principles.'
-  },
-  {
-    id: 3,
-    title: 'Best Performer in Class',
-    issuer: 'Teerthanker Mahaveer University',
-    date: '2023 - 2024',
-    icon: 'fas fa-trophy',
-    description: 'Recognized for academic excellence and outstanding performance in technical courses.'
   }
 ];
 

@@ -1,6 +1,6 @@
-import React from 'react';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { personalDetails, socialLinks } from '../data/portfolioData';
+import Logo from './Logo';
 
 export default function Footer() {
   return (
@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-6 md:mb-0">
             <a href="#home" className="text-2xl font-bold text-primary">
-              <img src={personalDetails.logo} alt="Logo" className="h-16 w-auto" />
+              <Logo className="h-16 w-auto" />
             </a>
 
             <p className="text-gray-500 mt-2 text-sm">

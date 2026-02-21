@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { downloadResume } from '../services/api';
+import { personalDetails } from '../data/portfolioData';
 
 export default function Home() {
   return (
@@ -14,16 +15,16 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           className="text-5xl md:text-7xl font-extrabold text-black dark:text-white mb-4"
         >
-          Prashant <span className="text-primary">Sharma</span>
+          {personalDetails.name.split(' ')[0]} <span className="text-primary">{personalDetails.name.split(' ')[1]}</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto"
+          className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto"
         >
-          Highly motivated Java Developer skilled in building scalable full-stack applications using Spring Boot and React.
+          {personalDetails.summary}
         </motion.p>
 
         <motion.div
