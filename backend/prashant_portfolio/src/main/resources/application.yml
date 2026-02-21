@@ -31,7 +31,7 @@ google:
 # CORS Configuration
 app:
   cors:
-    allowed-origins: ${ALLOWED_ORIGINS:*}
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3000}
   mail:
     from: ${MAIL_FROM:your-email@gmail.com}
     to: ${MAIL_TO:your-email@gmail.com}
