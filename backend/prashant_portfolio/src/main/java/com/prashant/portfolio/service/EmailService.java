@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * Service for handling email operations.
- * Sends contact form submissions via email.
  */
 @Service
 public class EmailService {
@@ -32,88 +31,62 @@ public class EmailService {
     }
 
     /**
-     * Sends a contact form email asynchronously.
-     * To: Prashant (Owner)
+     * Sends a notification email to Prashant (Owner).
+     * @Async makes it run in background so user doesn't wait.
      */
     @Async
-    public void sendContactEmail(ContactRequestDto request) {
+    public void sendNotificationToOwner(ContactRequestDto request) {
         try {
-            // 1. Send notification to Prashant (Owner)
-            MimeMessage ownerMessage = mailSender.createMimeMessage();
-            MimeMessageHelper ownerHelper = new MimeMessageHelper(ownerMessage, false, "UTF-8");
-            ownerHelper.setFrom(emailConfig.getFromEmail());
-            ownerHelper.setReplyTo(new InternetAddress(request.getEmail(), request.getName()));
-            ownerHelper.setTo(emailConfig.getToEmail());
-            ownerHelper.setSubject("📬 Portfolio: " + request.getName() + " | " + request.getSubject());
-            ownerHelper.setText(buildOwnerEmailBody(request), false);
-            mailSender.send(ownerMessage);
-            
-            logger.info("Notification email sent to owner for submission from: {}", request.getEmail());
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
 
-            // 2. Send acknowledgement to the User (Sender)
-            sendAcknowledgementEmail(request);
+            helper.setFrom(emailConfig.getFromEmail(), "Portfolio Website");
+            helper.setReplyTo(new InternetAddress(request.getEmail(), request.getName()));
+            helper.setTo(emailConfig.getToEmail());
+            helper.setSubject("New Portfolio Message: " + request.getName());
+
+            String body = "Hello Prashant,\n\n" +
+                    "You have a new message from your portfolio website:\n\n" +
+                    "-----------------------------------\n" +
+                    "Name: " + request.getName() + "\n" +
+                    "Email: " + request.getEmail() + "\n" +
+                    "Subject: " + request.getSubject() + "\n" +
+                    "-----------------------------------\n\n" +
+                    "Message:\n" + request.getMessage();
+
+            helper.setText(body);
+            mailSender.send(mimeMessage);
+            logger.info("Notification email sent to owner.");
 
         } catch (Exception e) {
-            logger.error("Error in email process for: {}", request.getEmail(), e);
+            logger.error("Error sending notification to owner", e);
         }
     }
 
     /**
-     * Sends an acknowledgement email to the person who filled the form.
+     * Sends a "Thank You" email to the user.
      */
     @Async
-    private void sendAcknowledgementEmail(ContactRequestDto request) {
+    public void sendAcknowledgmentToUser(ContactRequestDto request) {
         try {
-            MimeMessage userMessage = mailSender.createMimeMessage();
-            MimeMessageHelper userHelper = new MimeMessageHelper(userMessage, false, "UTF-8");
-            
-            userHelper.setFrom(emailConfig.getFromEmail(), "Prashant Sharma");
-            userHelper.setTo(request.getEmail());
-            userHelper.setSubject("Thank you for contacting me!");
-            
-            String body = String.format(
-                "Hi %s,\n\n" +
-                "Thank you for reaching out via my portfolio website! I have received your message regarding '%s'.\n\n" +
-                "I will review your message and get back to you as soon as possible.\n\n" +
-                "Best Regards,\n" +
-                "Prashant Sharma\n" +
-                "Software Developer",
-                request.getName(),
-                request.getSubject()
-            );
-            
-            userHelper.setText(body, false);
-            mailSender.send(userMessage);
-            logger.info("Acknowledgement email sent to user: {}", request.getEmail());
-        } catch (Exception e) {
-            logger.error("Failed to send acknowledgement email to: {}", request.getEmail(), e);
-        }
-    }
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
 
-    /**
-     * Builds a clear, well-formatted email body for the owner.
-     */
-    private String buildOwnerEmailBody(ContactRequestDto request) {
-        return String.format(
-            "============================================\n" +
-            "  NEW MESSAGE FROM YOUR PORTFOLIO WEBSITE  \n" +
-            "============================================\n\n" +
-            "  Name    : %s\n" +
-            "  Email   : %s\n" +
-            "  Subject : %s\n\n" +
-            "--------------------------------------------\n" +
-            "  Message :\n\n" +
-            "  %s\n\n" +
-            "--------------------------------------------\n" +
-            "  Reply directly to this email to respond\n" +
-            "  to %s at %s\n" +
-            "============================================\n",
-            request.getName(),
-            request.getEmail(),
-            request.getSubject(),
-            request.getMessage(),
-            request.getName(),
-            request.getEmail()
-        );
+            helper.setFrom(emailConfig.getFromEmail(), "Prashant Sharma");
+            helper.setTo(request.getEmail());
+            helper.setSubject("Thanks for reaching out!");
+
+            String body = "Hi " + request.getName() + ",\n\n" +
+                    "Thank you for contacting me through my portfolio. " +
+                    "I have received your message and will get back to you soon.\n\n" +
+                    "Best Regards,\nPrashant Sharma";
+
+            helper.setText(body);
+            mailSender.send(mimeMessage);
+            logger.info("Acknowledgment email sent to user: {}", request.getEmail());
+
+        } catch (Exception e) {
+            logger.error("Error sending acknowledgment to user", e);
+        }
     }
 }
