@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,6 +37,7 @@ public class EmailService {
      * From    : system email (required by Gmail SMTP)
      * Reply-To: user's email (so Prashant's reply goes directly to the sender)
      */
+    @Async
     public void sendContactEmail(ContactRequestDto request) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
