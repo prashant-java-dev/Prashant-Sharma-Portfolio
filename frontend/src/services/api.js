@@ -11,7 +11,6 @@ const RESUME_PDF = `${BASE_PATH}Prashant_Sharma_Software_Developer_Resume.pdf`;
 
 export const resumeService = {
     viewResume: () => {
-        console.log("Viewing resume from:", RESUME_PDF);
         // Try backend first, fallback to static PDF
         window.open(RESUME_PDF, '_blank');
     },

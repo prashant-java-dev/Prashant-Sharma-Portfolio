@@ -34,7 +34,9 @@ public class ContactController {
     public ResponseEntity<ApiResponse<Void>> sendMessage(@Valid @RequestBody ContactRequestDto request) {
         logger.info("Received contact form submission from: {}", request.getEmail());
         
-        emailService.sendContactEmail(request);
+        // These run in background (Async)
+        emailService.sendNotificationToOwner(request);
+        emailService.sendAcknowledgmentToUser(request);
         
         return ResponseEntity.ok(
             ApiResponse.success("Message sent successfully!")

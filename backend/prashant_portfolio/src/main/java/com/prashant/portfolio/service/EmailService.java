@@ -2,21 +2,21 @@ package com.prashant.portfolio.service;
 
 import com.prashant.portfolio.config.EmailConfig;
 import com.prashant.portfolio.dto.ContactRequestDto;
-import com.prashant.portfolio.exception.BusinessException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Service for handling email operations.
- * Sends contact form submissions via email.
- * Reply-To is set to the user's email so Prashant can directly reply to them.
+ * Sends contact form submissions to the owner and an acknowledgment to the user.
  */
 @Service
 public class EmailService {
@@ -32,64 +32,67 @@ public class EmailService {
     }
 
     /**
-     * Sends a contact form email.
-     * From    : system email (required by Gmail SMTP)
-     * Reply-To: user's email (so Prashant's reply goes directly to the sender)
+     * Sends a notification email to Prashant (Owner).
+     * @Async makes it run in background so user doesn't wait.
      */
+    @Async
     public void sendContactEmail(ContactRequestDto request) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
 
-            // From must be the authenticated Gmail account
-            helper.setFrom(emailConfig.getFromEmail());
-
-            // ✅ Reply-To = user's email — clicking "Reply" will open user's email
+            helper.setFrom(emailConfig.getFromEmail(), "Portfolio Website");
             helper.setReplyTo(new InternetAddress(request.getEmail(), request.getName()));
-
-            // Send to Prashant's inbox
             helper.setTo(emailConfig.getToEmail());
+            helper.setSubject("📬 New Message: " + request.getName() + " | " + request.getSubject());
 
-            // Subject clearly shows who sent it
-            helper.setSubject("📬 " + request.getName() + " | " + request.getSubject());
+            String body = "Hello Prashant,\n\n" +
+                    "You have a new message from your portfolio website:\n\n" +
+                    "-----------------------------------\n" +
+                    "Name    : " + request.getName() + "\n" +
+                    "Email   : " + request.getEmail() + "\n" +
+                    "Subject : " + request.getSubject() + "\n" +
+                    "-----------------------------------\n\n" +
+                    "Message:\n" + request.getMessage() + "\n\n" +
+                    "-----------------------------------\n" +
+                    "You can reply directly to this email to contact the sender.";
 
-            // Email body
-            helper.setText(buildEmailBody(request), false);
-
+            helper.setText(body);
             mailSender.send(mimeMessage);
-            logger.info("Contact email sent. Reply-To set to: {}", request.getEmail());
+            logger.info("Notification email sent to owner for: {}", request.getEmail());
 
-        } catch (MessagingException e) {
-            logger.error("Failed to send contact email from: {}", request.getEmail(), e);
-            throw new BusinessException("Failed to send email. Please try again later.",
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+            // Also send acknowledgment to user
+            sendAcknowledgmentToUser(request);
+
+        } catch (Exception e) {
+            logger.error("Error sending notification to owner", e);
         }
     }
 
     /**
-     * Builds a clear, well-formatted email body.
+     * Sends a "Thank You" email to the user.
      */
-    private String buildEmailBody(ContactRequestDto request) {
-        return String.format(
-            "============================================\n" +
-            "  NEW MESSAGE FROM YOUR PORTFOLIO WEBSITE  \n" +
-            "============================================\n\n" +
-            "  Name    : %s\n" +
-            "  Email   : %s\n" +
-            "  Subject : %s\n\n" +
-            "--------------------------------------------\n" +
-            "  Message :\n\n" +
-            "  %s\n\n" +
-            "--------------------------------------------\n" +
-            "  Reply directly to this email to respond\n" +
-            "  to %s at %s\n" +
-            "============================================\n",
-            request.getName(),
-            request.getEmail(),
-            request.getSubject(),
-            request.getMessage(),
-            request.getName(),
-            request.getEmail()
-        );
+    @Async
+    public void sendAcknowledgmentToUser(ContactRequestDto request) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+
+            helper.setFrom(emailConfig.getFromEmail(), "Prashant Sharma");
+            helper.setTo(request.getEmail());
+            helper.setSubject("Thanks for reaching out!");
+
+            String body = "Hi " + request.getName() + ",\n\n" +
+                    "Thank you for contacting me through my portfolio. " +
+                    "I have received your message and will get back to you soon.\n\n" +
+                    "Best Regards,\nPrashant Sharma";
+
+            helper.setText(body);
+            mailSender.send(mimeMessage);
+            logger.info("Acknowledgment email sent to user: {}", request.getEmail());
+
+        } catch (Exception e) {
+            logger.error("Error sending acknowledgment to user", e);
+        }
     }
 }
