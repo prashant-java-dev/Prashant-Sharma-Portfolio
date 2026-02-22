@@ -50,15 +50,34 @@ public class ResumeController {
         try {
             ClassPathResource resource = new ClassPathResource(RESUME_PATH);
 
+            // If exact path not found, try to find any PDF in the resume folder
             if (!resource.exists()) {
-                logger.error("Resume file not found at path: {}", RESUME_PATH);
+                logger.warn("Resume file not found at exact path: {}. Searching in resume/ folder...", RESUME_PATH);
+                try {
+                    Resource folder = new ClassPathResource("resume/");
+                    if (folder.exists() && folder.getFile().isDirectory()) {
+                        java.io.File[] files = folder.getFile().listFiles((dir, name) -> name.toLowerCase().endsWith(".pdf"));
+                        if (files != null && files.length > 0) {
+                            String foundPath = "resume/" + files[0].getName();
+                            logger.info("Found alternative resume file: {}", foundPath);
+                            resource = new ClassPathResource(foundPath);
+                        }
+                    }
+                } catch (Exception e) {
+                    logger.error("Error searching for alternative resume file", e);
+                }
+            }
+
+            if (!resource.exists()) {
+                logger.error("No resume PDF file found in classpath: resume/");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
 
+            String filename = resource.getFilename();
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_PDF)
                     .header(HttpHeaders.CONTENT_DISPOSITION,
-                            disposition + "; filename=\"" + RESUME_FILENAME + "\"")
+                            disposition + "; filename=\"" + filename + "\"")
                     .body(resource);
 
         } catch (Exception e) {
