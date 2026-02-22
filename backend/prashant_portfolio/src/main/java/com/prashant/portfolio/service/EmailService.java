@@ -36,7 +36,7 @@ public class EmailService {
      * @Async makes it run in background so user doesn't wait.
      */
     @Async
-    public void sendContactEmail(ContactRequestDto request) {
+    public void sendNotificationToOwner(ContactRequestDto request) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
@@ -60,9 +60,6 @@ public class EmailService {
             helper.setText(body);
             mailSender.send(mimeMessage);
             logger.info("Notification email sent to owner for: {}", request.getEmail());
-
-            // Also send acknowledgment to user
-            sendAcknowledgmentToUser(request);
 
         } catch (Exception e) {
             logger.error("Error sending notification to owner", e);
