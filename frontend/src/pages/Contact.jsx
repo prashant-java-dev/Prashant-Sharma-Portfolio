@@ -26,8 +26,15 @@ export default function Contact() {
       setStatus({ type: 'success', message: 'Message sent successfully!' });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Failed to send message. Please try again.';
-      setStatus({ type: 'error', message: errorMessage });
+      if (error.response?.status === 400 && error.response?.data?.data) {
+        // Detailed validation errors
+        const errors = error.response.data.data;
+        const firstError = Object.values(errors)[0];
+        setStatus({ type: 'error', message: `Validation failed: ${firstError}` });
+      } else {
+        const errorMessage = error.response?.data?.message || 'Failed to send message. Please try again.';
+        setStatus({ type: 'error', message: errorMessage });
+      }
     } finally {
       setLoading(false);
     }
