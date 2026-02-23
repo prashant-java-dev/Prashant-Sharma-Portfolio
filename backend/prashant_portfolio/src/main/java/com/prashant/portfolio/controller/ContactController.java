@@ -25,6 +25,12 @@ public class ContactController {
     private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
     private final EmailService emailService;
 
+    @org.springframework.beans.factory.annotation.Value("${spring.mail.host}")
+    private String smtpHost;
+
+    @org.springframework.beans.factory.annotation.Value("${spring.mail.port}")
+    private String smtpPort;
+
     public ContactController(EmailService emailService) {
         this.emailService = emailService;
     }
@@ -33,12 +39,11 @@ public class ContactController {
      * POST /api/contact
      * Processes inquiry messages from the portfolio frontend.
      * 
-     * OPTIMIZATION: Email sending is invoked asynchronously to ensure 
-     * a responsive 1-2 second feedback loop for the frontend user.
+     * VERIFICATION: Logs the SMTP host and port to help debug Railway config overrides.
      */
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> sendMessage(@Valid @RequestBody ContactRequestDto request) {
-        logger.info("Processing contact request from: {}", request.getEmail());
+        logger.info("Processing contact request from: {} [SMTP: {}:{}]", request.getEmail(), smtpHost, smtpPort);
         
         // Trigger non-blocking email operations
         emailService.sendNotificationToOwner(request);
