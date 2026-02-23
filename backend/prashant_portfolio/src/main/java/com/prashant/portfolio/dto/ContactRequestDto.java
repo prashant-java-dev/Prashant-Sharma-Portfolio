@@ -6,12 +6,11 @@ import jakarta.validation.constraints.Size;
 
 /**
  * Data Transfer Object for contact form submissions.
- * Separates API input from internal business logic.
  */
 public class ContactRequestDto {
 
     @NotBlank(message = "Name is required")
-    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
+    @Size(min = 1, max = 100, message = "Name must be between 1 and 100 characters")
     private String name;
 
     @NotBlank(message = "Email is required")
@@ -19,11 +18,11 @@ public class ContactRequestDto {
     private String email;
 
     @NotBlank(message = "Subject is required")
-    @Size(min = 3, max = 200, message = "Subject must be between 3 and 200 characters")
+    @Size(min = 1, max = 200, message = "Subject must be between 1 and 200 characters")
     private String subject;
 
     @NotBlank(message = "Message is required")
-    @Size(min = 10, max = 1000, message = "Message must be between 10 and 1000 characters")
+    @Size(min = 1, max = 2000, message = "Message must be between 1 and 2000 characters")
     private String message;
 
     // Constructors

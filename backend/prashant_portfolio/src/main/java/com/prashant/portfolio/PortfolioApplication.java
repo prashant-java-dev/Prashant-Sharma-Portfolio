@@ -2,14 +2,11 @@ package com.prashant.portfolio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import io.github.cdimascio.dotenv.Dotenv;
-<<<<<<< HEAD
-=======
-
 import org.springframework.scheduling.annotation.EnableAsync;
->>>>>>> fee7cd166534775e6ad71f788fdd7a2c74dd4f0d
+import io.github.cdimascio.dotenv.Dotenv;
 
 @SpringBootApplication
+@EnableAsync
 public class PortfolioApplication {
 
     public static void main(String[] args) {
@@ -22,5 +19,4 @@ public class PortfolioApplication {
         }
         SpringApplication.run(PortfolioApplication.class, args);
     }
-
 }
