@@ -25,6 +25,13 @@ public class EmailService {
     public EmailService(JavaMailSender mailSender, EmailConfig emailConfig) {
         this.mailSender = mailSender;
         this.emailConfig = emailConfig;
+        logger.info("EmailService initialized with FROM: {} and TO: {}", 
+            maskEmail(emailConfig.getFromEmail()), maskEmail(emailConfig.getToEmail()));
+    }
+
+    private String maskEmail(String email) {
+        if (email == null || !email.contains("@")) return "****";
+        return email.replaceAll("(^.{2})(.*)(@.*)", "$1****$3");
     }
 
     /**
