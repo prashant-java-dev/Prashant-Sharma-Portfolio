@@ -10,8 +10,8 @@ import axios from 'axios';
  * 3. Modular Service Pattern: Exports clean, reusable service objects for different domain features.
  */
 
-// Load API URL from environment (Vite) or fallback to local development port
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+// Hardcoded fallback for production to ensure form works even if VITE_API_URL is missing
+const API_URL = import.meta.env.VITE_API_URL || 'https://portfolio-system-production.up.railway.app/api';
 
 // Handle routing base path for GitHub Pages deployments
 const BASE_PATH = import.meta.env.BASE_URL || '/';
