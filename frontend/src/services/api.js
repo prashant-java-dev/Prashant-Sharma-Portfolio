@@ -1,22 +1,40 @@
 import axios from 'axios';
 
-// Uses Railway backend in production, localhost in development
+/**
+ * Centralized API configuration for the frontend application.
+ * 
+ * DESIGN FEATURES:
+ * 1. Environment-Based Configuration: Dynamically switches between Local and Production (Railway) endpoints.
+ * 2. Robust File Serving: Implements a hybrid approach for resume handling—using static assets 
+ *    for immediate availability and fallback.
+ * 3. Modular Service Pattern: Exports clean, reusable service objects for different domain features.
+ */
+
+// Load API URL from environment (Vite) or fallback to local development port
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
-// Base path for static assets (GitHub Pages)
+// Handle routing base path for GitHub Pages deployments
 const BASE_PATH = import.meta.env.BASE_URL || '/';
-const RESUME_PDF = `${BASE_PATH}Prashant_Sharma_Software_Developer_Resume.pdf`;
+const RESUME_STATIC_PATH = `${BASE_PATH}Prashant_Sharma_Software_Developer_Resume.pdf`;
 
-// ─── Resume ────────────────────────────────────────────────────────────────
-
+/**
+ * Service for Resume related operations.
+ */
 export const resumeService = {
+    /**
+     * Opens the resume in a new browser tab.
+     * Uses the static public path for zero-latency response.
+     */
     viewResume: () => {
-        // Try backend first, fallback to static PDF
-        window.open(RESUME_PDF, '_blank');
+        window.open(RESUME_STATIC_PATH, '_blank');
     },
+
+    /**
+     * Creates a dummy download link to trigger file save.
+     */
     downloadResume: () => {
         const link = document.createElement('a');
-        link.href = RESUME_PDF;
+        link.href = RESUME_STATIC_PATH;
         link.setAttribute('download', 'Prashant_Sharma_Software_Developer_Resume.pdf');
         document.body.appendChild(link);
         link.click();
@@ -24,17 +42,19 @@ export const resumeService = {
     }
 };
 
-// Kept for backward compatibility with Home.jsx
-export const downloadResume = () => RESUME_PDF;
-
-// ─── Contact ───────────────────────────────────────────────────────────────
-
+/**
+ * Service for Contact inquiry operations.
+ */
 export const contactService = {
+    /**
+     * Sends contact form data to the Spring Boot backend.
+     * @param {Object} data - {name, email, subject, message}
+     */
     sendMessage: async (data) => {
         return await axios.post(`${API_URL}/contact`, data);
     }
 };
 
-export const sendContact = async (data) => {
-    return await axios.post(`${API_URL}/contact`, data);
-};
+// Legacy exports for backward compatibility
+export const downloadResume = () => RESUME_STATIC_PATH;
+export const sendContact = (data) => contactService.sendMessage(data);

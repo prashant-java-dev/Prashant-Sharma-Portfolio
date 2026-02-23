@@ -11,60 +11,61 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * REST controller for handling resume operations.
- * Provides preview and download endpoints for the resume PDF.
- * Resume: Prashant_Sharma_Software_Developer_Resume.pdf
+ * Controller to manage Resume distribution.
+ * 
+ * IMPLEMENTATION DETAILS:
+ * - Resource Handling: Uses ClassPathResource to serve files bundled within the JAR, 
+ *   ensuring the application is portable across environments (Local, Railway, etc.).
+ * - Content Disposition: Dynamically switches between 'inline' (preview) and 'attachment' (download).
  */
 @RestController
 @RequestMapping("/api/resume")
 public class ResumeController {
 
     private static final Logger logger = LoggerFactory.getLogger(ResumeController.class);
-    private static final String RESUME_PATH = "resume/Prashant_Sharma_Software_Developer_Resume.pdf";
-    private static final String RESUME_FILENAME = "Prashant_Sharma_Software_Developer_Resume.pdf";
+    
+    // Path within src/main/resources
+    private static final String RESUME_RESOURCE_PATH = "resume/Prashant_Sharma_Software_Developer_Resume.pdf";
+    private static final String DOWNLOAD_FILENAME = "Prashant_Sharma_Software_Developer_Resume.pdf";
 
     /**
-     * Endpoint to preview resume in browser.
-     * @return Resume PDF as inline content
+     * Preview the resume directly in the browser tab.
      */
     @GetMapping("/view")
     public ResponseEntity<Resource> viewResume() {
-        logger.info("Resume view requested");
         return buildResumeResponse("inline");
     }
 
     /**
-     * Endpoint to download resume.
-     * @return Resume PDF as downloadable attachment
+     * Trigger a direct browser download of the resume.
      */
     @GetMapping("/download")
     public ResponseEntity<Resource> downloadResume() {
-        logger.info("Resume download requested");
         return buildResumeResponse("attachment");
     }
 
     /**
-     * Builds the resume response with specified disposition.
+     * Helper method to centralize resource loading logic.
+     * Demonstrates DRY (Don't Repeat Yourself) principle.
      */
     private ResponseEntity<Resource> buildResumeResponse(String disposition) {
         try {
-            ClassPathResource resource = new ClassPathResource(RESUME_PATH);
+            Resource resource = new ClassPathResource(RESUME_RESOURCE_PATH);
 
             if (!resource.exists()) {
-                logger.error("Resume file not found at path: {}", RESUME_PATH);
+                logger.error("Configuration Error: Resume file missing at classpath:{}", RESUME_RESOURCE_PATH);
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
 
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_PDF)
-                    .header(HttpHeaders.CONTENT_DISPOSITION,
-                            disposition + "; filename=\"" + RESUME_FILENAME + "\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, 
+                            String.format("%s; filename=\"%s\"", disposition, DOWNLOAD_FILENAME))
                     .body(resource);
 
         } catch (Exception e) {
-            logger.error("Error serving resume file", e);
+            logger.error("Internal Error: Could not process resume request - {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }
-

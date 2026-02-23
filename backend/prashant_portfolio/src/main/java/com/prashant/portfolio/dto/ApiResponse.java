@@ -3,8 +3,13 @@ package com.prashant.portfolio.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
- * Standardized API response wrapper.
- * Provides consistent response structure across all endpoints.
+ * UTILITY: Generic API Response Wrapper.
+ * 
+ * Consistent Response Structure is a hallmark of professional enterprise APIs. 
+ * This class ensures that every endpoint returns a predictable JSON object 
+ * containing success status, a message, and optional data.
+ * 
+ * @param <T> The type of the data payload.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
@@ -13,43 +18,41 @@ public class ApiResponse<T> {
     private String message;
     private T data;
 
-    // Private constructor to enforce builder pattern
     private ApiResponse(boolean success, String message, T data) {
         this.success = success;
         this.message = message;
         this.data = data;
     }
 
-    // Success response with data
+    /**
+     * Factory method for successful operations with data.
+     */
     public static <T> ApiResponse<T> success(String message, T data) {
         return new ApiResponse<>(true, message, data);
     }
 
-    // Success response without data
+    /**
+     * Overloaded factory method for success without data payload.
+     */
     public static <T> ApiResponse<T> success(String message) {
         return new ApiResponse<>(true, message, null);
     }
 
-    // Error response without data
+    /**
+     * Factory method for error cases.
+     */
     public static <T> ApiResponse<T> error(String message) {
         return new ApiResponse<>(false, message, null);
     }
 
-    // Error response with data (e.g., validation errors)
+    /**
+     * Factory method for validation errors using a specific data map.
+     */
     public static <T> ApiResponse<T> error(String message, T data) {
         return new ApiResponse<>(false, message, data);
     }
 
-    // Getters
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public T getData() {
-        return data;
-    }
+    public boolean isSuccess() { return success; }
+    public String getMessage() { return message; }
+    public T getData() { return data; }
 }
