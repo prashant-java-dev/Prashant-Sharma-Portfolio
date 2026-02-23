@@ -33,19 +33,14 @@ public class EmailService {
      */
     @Async
     public void sendNotificationToOwner(ContactRequestDto request) {
+        logger.info("Starting to send notification email to owner for: {}", request.getEmail());
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
 
-            // Display sender's name in the "From" display part for better visibility
             helper.setFrom(new InternetAddress(emailConfig.getFromEmail(), "Portfolio: " + request.getName()));
-            
-            // Critical: Set Reply-To so clicking "Reply" in your inbox goes to the USER
             helper.setReplyTo(new InternetAddress(request.getEmail(), request.getName()));
-            
             helper.setTo(emailConfig.getToEmail());
-            
-            // Include user's email directly in subject for quick view
             helper.setSubject("📬 message from: " + request.getEmail());
 
             String body = "Hello Prashant,\n\n" +
@@ -62,10 +57,10 @@ public class EmailService {
 
             helper.setText(body);
             mailSender.send(mimeMessage);
-            logger.info("Notification email sent to owner for: {}", request.getEmail());
+            logger.info("SUCCESS: Notification email sent to owner for: {}", request.getEmail());
 
         } catch (Exception e) {
-            logger.error("Error sending notification to owner", e);
+            logger.error("CRITICAL ERROR: Failed to send notification email to owner. Reason: {}", e.getMessage(), e);
         }
     }
 
