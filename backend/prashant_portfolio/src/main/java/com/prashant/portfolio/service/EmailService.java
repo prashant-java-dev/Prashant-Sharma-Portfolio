@@ -72,7 +72,7 @@ public class EmailService {
     }
 
     /**
-     * Sends a professional "Thank You" email to the user.
+     * Sends a professional acknowledgment email to the user.
      */
     @Async
     public void sendAcknowledgmentToUser(ContactRequestDto request) {
@@ -80,18 +80,33 @@ public class EmailService {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
 
+            // Appearance in User's Inbox
             helper.setFrom(new InternetAddress(emailConfig.getFromEmail(), "Prashant Sharma"));
+            
+            // Critical: If user clicks "Reply", it goes to Prashant's real email
+            helper.setReplyTo(new InternetAddress(emailConfig.getToEmail(), "Prashant Sharma"));
+            
             helper.setTo(request.getEmail());
-            helper.setSubject("Thank you for your message, " + request.getName() + "!");
+            helper.setSubject("Notification: Message Received on Prashant's Portfolio");
 
-            String body = "Hi " + request.getName() + ",\n\n" +
-                    "Thank you for reaching out through my Developer Portfolio! This is an automated confirmation that I have successfully received your inquiry regarding '" + request.getSubject() + "'.\n\n" +
-                    "I have read your message and I'm very interested in what you Shared. I will review the details and get back to you at this email address (" + request.getEmail() + ") within the next 24-48 hours.\n\n" +
-                    "In the meantime, feel free to check out my latest projects on GitHub: https://github.com/prashant-java-dev\n\n" +
+            String dateStr = new java.text.SimpleDateFormat("dd MMM yyyy, HH:mm").format(new java.util.Date());
+            
+            String body = "--------------------------------------------------\n" +
+                    " PORTFOLIO NOTIFICATION \n" +
+                    "--------------------------------------------------\n" +
+                    "Date      : " + dateStr + "\n" +
+                    "Subject   : " + request.getSubject() + "\n" +
+                    "mailed-by : portfolio-system.up.railway.app\n" +
+                    "Signed-by : prashant-sharma.com\n" +
+                    "--------------------------------------------------\n\n" +
+                    "Hi " + request.getName() + ",\n\n" +
+                    "Thank you for reaching out! I have received your message through my portfolio website. Here is a summary of your inquiry:\n\n" +
+                    "\"" + request.getMessage() + "\"\n\n" +
+                    "I will review this and get back to you as soon as possible. You can reply directly to this email if you have more details to share.\n\n" +
                     "Best Regards,\n" +
                     "Prashant Sharma\n" +
                     "Software Developer\n" +
-                    "Moradabad, India";
+                    "https://github.com/prashant-java-dev";
 
             helper.setText(body);
             mailSender.send(mimeMessage);
