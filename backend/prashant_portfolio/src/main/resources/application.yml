@@ -8,19 +8,18 @@ spring:
       database: ${MONGODB_DATABASE:portfolio}
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
-    port: ${MAIL_PORT:587}
+    port: ${MAIL_PORT:465}
     username: ${MAIL_USERNAME:placeholder}
     password: ${MAIL_PASSWORD:placeholder}
     properties:
       mail:
         smtp:
           auth: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
-          starttls:
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
+          ssl:
             enable: true
-            required: true
         debug: true
 
 # JWT Configuration
