@@ -7,19 +7,22 @@ spring:
       uri: ${MONGODB_URI:${MONGO_URI:mongodb://localhost:27017/portfolio}}
       database: ${MONGODB_DATABASE:portfolio}
   mail:
-    host: ${MAIL_HOST:smtp.gmail.com}
-    port: ${MAIL_PORT:587}
+    host: ${MAIL_HOST:smtp.googlemail.com}
+    port: ${MAIL_PORT:465}
     username: ${MAIL_USERNAME:placeholder}
     password: ${MAIL_PASSWORD:placeholder}
     properties:
       mail:
         smtp:
           auth: true
-          starttls:
-            enable: true
-            required: true
           ssl:
+            enable: true
             trust: "*"
+            protocols: TLSv1.2
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
           connectiontimeout: 30000
           timeout: 30000
           writetimeout: 30000
