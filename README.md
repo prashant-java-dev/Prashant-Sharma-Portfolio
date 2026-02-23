@@ -1,4 +1,4 @@
-# 👨‍💻 Prashant Sharma - Full Stack Portfolio
+# 👨‍💻 Prashant Sharma - Aspiring Software Developer (Fresher) Portfolio
 
 [![Spring Boot](https://img.shields.io/badge/Backend-Spring%20Boot%203.2-red?style=flat-square&logo=springboot)](https://spring.io/projects/spring-boot)
 [![React](https://img.shields.io/badge/Frontend-React%2018-blue?style=flat-square&logo=react)](https://reactjs.org/)
