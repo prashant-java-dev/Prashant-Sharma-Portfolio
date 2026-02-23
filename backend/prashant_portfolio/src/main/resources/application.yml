@@ -7,21 +7,23 @@ spring:
       uri: ${MONGODB_URI:${MONGO_URI:mongodb://localhost:27017/portfolio}}
       database: ${MONGODB_DATABASE:portfolio}
   mail:
-    host: ${MAIL_HOST:smtp.googlemail.com}
-    port: ${MAIL_PORT:465}
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
     username: ${MAIL_USERNAME:placeholder}
     password: ${MAIL_PASSWORD:placeholder}
-    protocol: smtps
     properties:
       mail:
-        smtps:
+        smtp:
           auth: true
-          ssl:
+          starttls:
             enable: true
+            required: true
+          ssl:
             trust: "*"
-          connectiontimeout: 60000
-          timeout: 60000
-          writetimeout: 60000
+            protocols: TLSv1.2
+          connectiontimeout: 30000
+          timeout: 30000
+          writetimeout: 30000
         debug: true
 
 # JWT Configuration
