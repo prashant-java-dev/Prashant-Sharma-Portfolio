@@ -26,10 +26,7 @@ export default function Experience() {
                 <h3 className="text-xl font-bold">{exp.role}</h3>
                 <span className="text-primary font-medium">{exp.period}</span>
               </div>
-              <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
-                <h4 className="text-lg text-gray-600 dark:text-gray-400">{exp.company}</h4>
-                {exp.location && <span className="text-sm text-gray-500">{exp.location}</span>}
-              </div>
+              <h4 className="text-lg text-gray-600 dark:text-gray-400 mb-4">{exp.company}</h4>
               <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400">
                 {exp.description.map((item, i) => (
                   <li key={i}>{item}</li>

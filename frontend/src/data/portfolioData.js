@@ -1,9 +1,10 @@
+
 import Logo from '../assets/prashant-sharma-logo.svg';
 
 export const projects = [
     {
         title: "SkyVault Drive",
-        description: "Built a secure file upload and sharing system using Java, Spring Boot, React.js, and MongoDB. Created REST APIs for file operations and implemented backend structure with authentication.",
+        description: "Built a secure file upload and sharing system. Created REST APIs for file operations and implemented backend structure with authentication.",
         tech: ["Java", "Spring Boot", "React.js", "MongoDB", "Tailwind CSS"],
         github: "https://github.com/prashant-java-dev",
         demo: "https://skyvault-drive.netlify.app/",
@@ -11,7 +12,7 @@ export const projects = [
     },
     {
         title: "Resume Stack",
-        description: "Built a full-stack resume builder application using Spring Boot and React.js. Created APIs for resume management (adding/editing) and implemented a PDF download feature.",
+        description: "Built a full-stack resume builder application. Created APIs for resume management and implemented a PDF download feature.",
         tech: ["Spring Boot", "React.js", "Java", "REST APIs", "MongoDB"],
         github: "https://github.com/prashant-java-dev",
         demo: "https://resumestack-maker.netlify.app/",
@@ -19,8 +20,8 @@ export const projects = [
     },
     {
         title: "Portfolio Website",
-        description: "Built a personal portfolio using React.js, HTML, and CSS to showcase projects, skills, and contact details with a modern and responsive UI.",
-        tech: ["React.js", "HTML", "CSS", "Tailwind CSS"],
+        description: "Built a personal portfolio to showcase projects, skills, and contact details with a modern and responsive UI.",
+        tech: ["React.js", "HTML5", "CSS3", "Tailwind CSS"],
         github: "https://github.com/prashant-java-dev",
         demo: "https://prashant-java-dev.github.io/Prashant-Sharma-Portfolio/",
         period: "Present"
@@ -31,7 +32,6 @@ export const experiences = [
     {
         role: 'Software Developer (Academic Role)',
         company: 'Teerthanker Mahaveer University (TMU)',
-        location: 'Moradabad, India',
         period: 'Sep 2024 – Mar 2025',
         description: [
             'Developed backend modules using Java and Spring Boot.',
@@ -45,32 +45,28 @@ export const experiences = [
 
 export const skillCategories = [
     {
-        title: 'Backend Technologies',
-        skills: [
-            'Java',
-            'Spring Boot',
-            'REST APIs',
-            'MVC Architecture',
-            'Backend Development',
-            'MySQL',
-            'MongoDB',
-            'OOP',
-            'Data Structures & Algorithms',
-            'Exception Handling'
-        ]
+        title: 'Languages',
+        skills: ['Java', 'JavaScript']
     },
     {
-        title: 'Frontend & Tools',
-        skills: [
-            'JavaScript',
-            'React.js',
-            'HTML5',
-            'CSS3',
-            'Tailwind CSS',
-            'GitHub',
-            'Postman',
-            'JIRA'
-        ]
+        title: 'Backend Technologies',
+        skills: ['Spring Boot', 'REST APIs', 'MVC Architecture', 'Backend Development']
+    },
+    {
+        title: 'Frontend Technologies',
+        skills: ['React.js', 'HTML5', 'CSS3', 'Tailwind CSS']
+    },
+    {
+        title: 'Databases',
+        skills: ['MySQL', 'MongoDB']
+    },
+    {
+        title: 'Developer Tools',
+        skills: ['GitHub', 'Postman', 'JIRA']
+    },
+    {
+        title: 'Core Concepts',
+        skills: ['Object-Oriented Programming (OOP)', 'Data Structures & Algorithms', 'Exception Handling']
     },
     {
         title: 'Education',
@@ -82,6 +78,25 @@ export const skillCategories = [
     {
         title: 'Languages',
         skills: ['English', 'Hindi']
+    }
+];
+
+export const certifications = [
+    {
+        id: 1,
+        title: 'Java Programming Certificate',
+        issuer: 'Professional Certification',
+        date: '2024',
+        icon: 'fas fa-certificate',
+        description: 'Comprehensive certification covering Core Java, Collections API, and Multithreading.'
+    },
+    {
+        id: 2,
+        title: 'Web Development Workshop',
+        issuer: 'Technical Workshop',
+        date: '2023',
+        icon: 'fas fa-code',
+        description: 'Hands-on training in modern frontend technologies and responsive design principles.'
     }
 ];
 

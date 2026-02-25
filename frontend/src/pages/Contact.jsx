@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Mail, MapPin, Phone } from 'lucide-react';
 import { contactService } from '../services/api';
+import { socialLinks, personalDetails } from '../data/portfolioData';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -62,7 +63,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Email</p>
-                  <p className="font-bold">prashantsharma3018@gmail.com</p>
+                  <p className="font-bold">{socialLinks.email}</p>
                 </div>
               </div>
 

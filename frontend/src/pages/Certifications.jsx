@@ -1,23 +1,5 @@
 import React, { useEffect } from 'react';
-
-const certifications = [
-  {
-    id: 1,
-    title: 'Java Programming Certificate',
-    issuer: 'Professional Certification',
-    date: '2024',
-    icon: 'fas fa-certificate',
-    description: 'Comprehensive certification covering Core Java, Collections API, and Multithreading.'
-  },
-  {
-    id: 2,
-    title: 'Web Development Workshop',
-    issuer: 'Technical Workshop',
-    date: '2023',
-    icon: 'fas fa-code',
-    description: 'Hands-on training in modern frontend technologies and responsive design principles.'
-  }
-];
+import { certifications } from '../data/portfolioData';
 
 export default function Certifications() {
   useEffect(() => {
