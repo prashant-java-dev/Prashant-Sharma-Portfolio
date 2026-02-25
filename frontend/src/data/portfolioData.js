@@ -1,10 +1,9 @@
-
 import Logo from '../assets/prashant-sharma-logo.svg';
 
 export const projects = [
     {
         title: "SkyVault Drive",
-        description: "Built a secure file upload and sharing system. Created REST APIs for file operations and implemented backend structure with authentication.",
+        description: "Built a secure file upload and sharing system using Java, Spring Boot, React.js, and MongoDB. Created REST APIs for file operations and implemented backend structure with authentication.",
         tech: ["Java", "Spring Boot", "React.js", "MongoDB", "Tailwind CSS"],
         github: "https://github.com/prashant-java-dev",
         demo: "https://skyvault-drive.netlify.app/",
@@ -12,7 +11,7 @@ export const projects = [
     },
     {
         title: "Resume Stack",
-        description: "Built a full-stack resume builder application. Created APIs for resume management and implemented a PDF download feature.",
+        description: "Built a full-stack resume builder application using Spring Boot and React.js. Created APIs for resume management (adding/editing) and implemented a PDF download feature.",
         tech: ["Spring Boot", "React.js", "Java", "REST APIs", "MongoDB"],
         github: "https://github.com/prashant-java-dev",
         demo: "https://resumestack-maker.netlify.app/",
@@ -20,8 +19,8 @@ export const projects = [
     },
     {
         title: "Portfolio Website",
-        description: "Built a personal portfolio to showcase projects, skills, and contact details with a modern and responsive UI.",
-        tech: ["React.js", "HTML5", "CSS3", "Tailwind CSS"],
+        description: "Built a personal portfolio using React.js, HTML, and CSS to showcase projects, skills, and contact details with a modern and responsive UI.",
+        tech: ["React.js", "HTML", "CSS", "Tailwind CSS"],
         github: "https://github.com/prashant-java-dev",
         demo: "https://prashant-java-dev.github.io/Prashant-Sharma-Portfolio/",
         period: "Present"
@@ -32,6 +31,7 @@ export const experiences = [
     {
         role: 'Software Developer (Academic Role)',
         company: 'Teerthanker Mahaveer University (TMU)',
+        location: 'Moradabad, India',
         period: 'Sep 2024 – Mar 2025',
         description: [
             'Developed backend modules using Java and Spring Boot.',
@@ -45,10 +45,9 @@ export const experiences = [
 
 export const skillCategories = [
     {
-        title: 'Languages & Backend',
+        title: 'Backend Technologies',
         skills: [
             'Java',
-            'JavaScript',
             'Spring Boot',
             'REST APIs',
             'MVC Architecture',
@@ -63,6 +62,7 @@ export const skillCategories = [
     {
         title: 'Frontend & Tools',
         skills: [
+            'JavaScript',
             'React.js',
             'HTML5',
             'CSS3',
@@ -94,7 +94,7 @@ export const socialLinks = {
 export const personalDetails = {
     name: "PRASHANT SHARMA",
     role: "Software Developer",
-    summary: "Software Developer Fresher with knowledge of Java, Spring Boot, JavaScript, and REST APIs. Experience building full-stack web applications using Spring Boot, React.js, and MongoDB.",
+    summary: "Software Developer Fresher with knowledge of Java, Spring Boot, JavaScript, and REST APIs. Experience building full-stack web applications using Spring Boot, React.js, and MongoDB. Good understanding of OOP and Data Structures. Looking for an opportunity as a Software / Web / Java Developer.",
     logo: Logo
 };
 
