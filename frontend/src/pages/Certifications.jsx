@@ -20,6 +20,8 @@ export default function Certifications() {
     return () => observer.disconnect();
   }, []);
 
+  const BASE_URL = import.meta.env.BASE_URL || '/';
+
   return (
     <section
       id="certifications"
@@ -34,44 +36,49 @@ export default function Certifications() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {certifications.map((cert) => (
-            <div
-              key={cert.id}
-              className="fade-in-section group relative bg-neutral-50 dark:bg-neutral-900/50 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20"
-            >
-              <div className="mb-6 w-14 h-14 bg-white dark:bg-black rounded-xl flex items-center justify-center text-2xl text-primary shadow-sm group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500 overflow-hidden">
-                {cert.image ? (
-                  <img src={cert.image} alt={cert.title} className="w-full h-full object-cover" />
-                ) : (
-                  <i className={cert.icon}></i>
-                )}
+          {certifications.map((cert) => {
+            const imageSrc = cert.image ? (cert.image.startsWith('http') ? cert.image : `${BASE_URL}${cert.image.replace(/^\//, '')}`) : null;
+            const linkUrl = cert.link ? (cert.link.startsWith('http') ? cert.link : `${BASE_URL}${cert.link.replace(/^\//, '')}`) : null;
+            
+            return (
+              <div
+                key={cert.id}
+                className="fade-in-section group relative bg-neutral-50 dark:bg-neutral-900/50 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20"
+              >
+                <div className="mb-6 w-14 h-14 bg-white dark:bg-black rounded-xl flex items-center justify-center text-2xl text-primary shadow-sm group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500 overflow-hidden">
+                  {imageSrc ? (
+                    <img src={imageSrc} alt={cert.title} className="w-full h-full object-cover" />
+                  ) : (
+                    <i className={cert.icon}></i>
+                  )}
+                </div>
+
+                <span className="text-xs font-mono font-bold text-primary uppercase tracking-widest mb-2 block">
+                  {cert.date}
+                </span>
+
+                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
+                  {linkUrl ? (
+                    <a href={linkUrl} target="_blank" rel="noopener noreferrer" className="hover:underline decoration-primary/30 underline-offset-4">
+                      {cert.title}
+                    </a>
+                  ) : cert.title}
+                </h3>
+
+                <p className="text-neutral-500 dark:text-neutral-400 text-sm font-medium mb-4">
+                  {cert.issuer}
+                </p>
+
+                <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+                  {cert.description}
+                </p>
+
+                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                  <i className={`${cert.icon} text-6xl`}></i>
+                </div>
               </div>
-
-              <span className="text-xs font-mono font-bold text-primary uppercase tracking-widest mb-2 block">
-                {cert.date}
-              </span>
-
-              <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
-                {cert.link ? (
-                  <a href={cert.link} target="_blank" rel="noopener noreferrer" className="hover:underline decoration-primary/30 underline-offset-4">
-                    {cert.title}
-                  </a>
-                ) : cert.title}
-              </h3>
-
-              <p className="text-neutral-500 dark:text-neutral-400 text-sm font-medium mb-4">
-                {cert.issuer}
-              </p>
-
-              <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
-                {cert.description}
-              </p>
-
-              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                <i className={`${cert.icon} text-6xl`}></i>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
