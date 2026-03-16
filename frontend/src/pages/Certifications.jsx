@@ -39,8 +39,12 @@ export default function Certifications() {
               key={cert.id}
               className="fade-in-section group relative bg-neutral-50 dark:bg-neutral-900/50 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20"
             >
-              <div className="mb-6 w-14 h-14 bg-white dark:bg-black rounded-xl flex items-center justify-center text-2xl text-primary shadow-sm group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                <i className={cert.icon}></i>
+              <div className="mb-6 w-14 h-14 bg-white dark:bg-black rounded-xl flex items-center justify-center text-2xl text-primary shadow-sm group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500 overflow-hidden">
+                {cert.image ? (
+                  <img src={cert.image} alt={cert.title} className="w-full h-full object-cover" />
+                ) : (
+                  <i className={cert.icon}></i>
+                )}
               </div>
 
               <span className="text-xs font-mono font-bold text-primary uppercase tracking-widest mb-2 block">
@@ -48,7 +52,11 @@ export default function Certifications() {
               </span>
 
               <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
-                {cert.title}
+                {cert.link ? (
+                  <a href={cert.link} target="_blank" rel="noopener noreferrer" className="hover:underline decoration-primary/30 underline-offset-4">
+                    {cert.title}
+                  </a>
+                ) : cert.title}
               </h3>
 
               <p className="text-neutral-500 dark:text-neutral-400 text-sm font-medium mb-4">

@@ -84,19 +84,63 @@ export const skillCategories = [
 export const certifications = [
     {
         id: 1,
-        title: 'Java Programming Certificate',
-        issuer: 'Professional Certification',
-        date: '2024',
-        icon: 'fas fa-certificate',
-        description: 'Comprehensive certification covering Core Java, Collections API, and Multithreading.'
+        title: 'Java (Basic) Certificate',
+        issuer: 'HackerRank',
+        date: 'Feb 2026',
+        icon: 'fab fa-java',
+        image: '/Certifications/Java (Basic)-HackerRank.png',
+        link: 'https://www.hackerrank.com/certificates/e5ca0458a6e5',
+        description: 'Credential ID: E5C40458A6E5. Verified proficiency in Java basics, OOPs, and core programming concepts.'
     },
     {
         id: 2,
-        title: 'Web Development Workshop',
-        issuer: 'Technical Workshop',
-        date: '2023',
+        title: 'Cpp Training Completion',
+        issuer: 'Spoken Tutorial, IIT Bombay',
+        date: 'Jan 2025',
         icon: 'fas fa-code',
-        description: 'Hands-on training in modern frontend technologies and responsive design principles.'
+        image: null,
+        link: '/Certifications/PRASHANT-SHARMA-Participant-Certificate.pdf',
+        description: 'Successfully completed the Cpp test organized at Teerthanker Mahaveer University with a score of 87.50%.'
+    },
+    {
+        id: 3,
+        title: 'Web Development Internship',
+        issuer: 'Intrainz Innovation Pvt. Ltd.',
+        date: 'Jul 2024 – Sep 2024',
+        icon: 'fas fa-laptop-code',
+        image: null,
+        link: '/Certifications/Internship Certificate @Prashant Sharma .pdf',
+        description: 'Hands-on experience in building responsive web applications using React.js and integrating RESTful APIs.'
+    },
+    {
+        id: 4,
+        title: 'Industrial Training',
+        issuer: 'Intrainz Innovation Pvt. Ltd.',
+        date: 'Jul 2024 – Sep 2024',
+        icon: 'fas fa-industry',
+        image: null,
+        link: '/Certifications/Industrial training certificate @Prashant Sharma.pdf',
+        description: 'Comprehensive training on industrial software development workflows and full-stack technologies.'
+    },
+    {
+        id: 5,
+        title: 'Letter of Recommendation',
+        issuer: 'Intrainz Innovation Pvt. Ltd.',
+        date: 'Sep 2024',
+        icon: 'fas fa-file-signature',
+        image: null,
+        link: '/Certifications/Letter Of Recommendation @Prashant Sharma.pdf',
+        description: 'Received for outstanding performance and dedication during the internship term.'
+    },
+    {
+        id: 6,
+        title: 'Web Development Workshop',
+        issuer: 'GeeksforGeeks (IIT Roorkee)',
+        date: 'Nov 2023',
+        icon: 'fas fa-tools',
+        image: null,
+        link: '/Certifications/Prashant_Sharma_Certificate_of_Workshop_on_Web_Development_by_GFG_certificate.pdf',
+        description: 'Intensive workshop experience covering modern web technologies and hands-on projects.'
     }
 ];
 
