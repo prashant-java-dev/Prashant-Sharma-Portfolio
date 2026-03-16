@@ -89,7 +89,7 @@ export const certifications = [
         date: 'Feb 2026',
         icon: 'fab fa-java',
         image: '/Certifications/Java (Basic)-HackerRank.png',
-        link: 'https://www.hackerrank.com/certificates/e5ca0458a6e5',
+        link: 'https://www.hackerrank.com/certificates/iframe/e5c40458a6e5',
         description: 'Credential ID: E5C40458A6E5. Verified proficiency in Java basics, OOPs, and core programming concepts.'
     },
     {
@@ -98,7 +98,7 @@ export const certifications = [
         issuer: 'Spoken Tutorial, IIT Bombay',
         date: 'Jan 2025',
         icon: 'fas fa-code',
-        image: null,
+        image: '/Certifications/Cpp Training Completion screenshort.png',
         link: '/Certifications/PRASHANT-SHARMA-Participant-Certificate.pdf',
         description: 'Successfully completed the Cpp test organized at Teerthanker Mahaveer University with a score of 87.50%.'
     },
@@ -108,8 +108,8 @@ export const certifications = [
         issuer: 'Intrainz Innovation Pvt. Ltd.',
         date: 'Jul 2024 – Sep 2024',
         icon: 'fas fa-laptop-code',
-        image: null,
-        link: '/Certifications/Internship Certificate @Prashant Sharma .pdf',
+        image: '/Certifications/Web Development Internship screenshort.png',
+        link: 'https://hyperstack.id/credential/33eb64f3-62b4-4589-8276-0f51026b5815?fb_ref=DDRwc2cVXk-Linkedin&utm_source=Linkedin&utm_medium=ShareButton&utm_campaign=GetSocial#',
         description: 'Hands-on experience in building responsive web applications using React.js and integrating RESTful APIs.'
     },
     {
@@ -118,7 +118,7 @@ export const certifications = [
         issuer: 'Intrainz Innovation Pvt. Ltd.',
         date: 'Jul 2024 – Sep 2024',
         icon: 'fas fa-industry',
-        image: null,
+        image: '/Certifications/Industrial Training screenshort.png',
         link: '/Certifications/Industrial training certificate @Prashant Sharma.pdf',
         description: 'Comprehensive training on industrial software development workflows and full-stack technologies.'
     },
@@ -128,7 +128,7 @@ export const certifications = [
         issuer: 'Intrainz Innovation Pvt. Ltd.',
         date: 'Sep 2024',
         icon: 'fas fa-file-signature',
-        image: null,
+        image: '/Certifications/Letter of Recommendation scrrenshort.png',
         link: '/Certifications/Letter Of Recommendation @Prashant Sharma.pdf',
         description: 'Received for outstanding performance and dedication during the internship term.'
     },
@@ -138,7 +138,7 @@ export const certifications = [
         issuer: 'GeeksforGeeks (IIT Roorkee)',
         date: 'Nov 2023',
         icon: 'fas fa-tools',
-        image: null,
+        image: '/Certifications/Prashant_Sharma_Certificate_of_Workshop_on_Web_Development_by_GFG_certificate (1).png',
         link: '/Certifications/Prashant_Sharma_Certificate_of_Workshop_on_Web_Development_by_GFG_certificate.pdf',
         description: 'Intensive workshop experience covering modern web technologies and hands-on projects.'
     }
